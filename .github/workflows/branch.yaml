@@ -1,0 +1,22 @@
+name: Branch
+
+on:
+  push:
+    branches: 
+      - development
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+concurrency:
+  group: concurrency-group-branches
+
+jobs:
+  call-deploy:
+    uses: ./.github/workflows/build.yaml
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_DEFAULT_ACCOUNT_ID: ${{ secrets.AWS_DEFAULT_ACCOUNT_ID }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

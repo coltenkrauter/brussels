@@ -1,0 +1,42 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - main
+      - development
+
+  workflow_call:
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_DEFAULT_ACCOUNT_ID:
+        required: true
+      AWS_DEFAULT_REGION:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: env
+        run: printenv
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: List files in the repository
+        run: |
+          tree -I 'node_modules|cache|test_*|objects' -a
+      - name: Install dependencies
+        run: npm ci
+      - name: Diff
+        run: npm run diff
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_DEFAULT_ACCOUNT_ID: ${{ secrets.AWS_DEFAULT_ACCOUNT_ID }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
