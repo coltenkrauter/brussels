@@ -2,7 +2,7 @@
 
 import { Certificate, CertificateValidation } from 'aws-cdk-lib/aws-certificatemanager';
 import { Construct } from 'constructs';
-import { HostedZone, ARecord, RecordTarget, CnameRecord, ZoneDelegationRecord } from 'aws-cdk-lib/aws-route53';
+import { HostedZone, ARecord, RecordTarget, CnameRecord, NsRecord } from 'aws-cdk-lib/aws-route53';
 import { Metric } from 'aws-cdk-lib/aws-cloudwatch';
 import { NextJSLambdaEdge } from '@sls-next/cdk-construct';
 import { Route53RecordTarget } from 'aws-cdk-lib/aws-route53-targets';
@@ -51,20 +51,20 @@ export class Next extends Stack {
     // });
     // cname.applyRemovalPolicy(RemovalPolicy.DESTROY);
 
-    const zd = new ZoneDelegationRecord(this, 'ZoneDelegationRecord', {
-      zone,
-      recordName: props.config.domainBase,
-      nameServers: [
-      // Get these from the AWS > Route53 > Registered domains > <domain_name> > Name servers
-        'ns-1214.awsdns-23.org.',
-        'ns-191.awsdns-23.com.',
-        'ns-1640.awsdns-13.co.uk.',
-        'ns-790.awsdns-34.net.',
-      ],
-      deleteExisting: true,
-      ttl: Duration.minutes(5),
-    });
-    zd.applyRemovalPolicy(RemovalPolicy.DESTROY);
+    // const ns = new NsRecord(this, 'NSRecord', {
+    //   zone,
+    //   recordName: props.config.domainBase,
+    //   values: [
+    //   // Get these from the AWS > Route53 > Registered domains > <domain_name> > Name servers
+    //     'ns-1214.awsdns-23.org.',
+    //     'ns-191.awsdns-23.com.',
+    //     'ns-1640.awsdns-13.co.uk.',
+    //     'ns-790.awsdns-34.net.',
+    //   ],
+    //   deleteExisting: true,
+    //   ttl: Duration.minutes(5),
+    // });
+    // ns.applyRemovalPolicy(RemovalPolicy.DESTROY);
 
     const certificate = new Certificate(this, `${id}Certificate`, {
       domainName: props.config.domainStage,
