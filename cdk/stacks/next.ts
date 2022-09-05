@@ -44,7 +44,7 @@ export class Next extends Stack {
     const cname = new CnameRecord(this, `${props.config.stage}CnameRecord`, {
       recordName: props.config.stage,
       zone,
-      domainName: props.config.domainStage,
+      domainName: props.config.domainBase,
       deleteExisting: true,
       ttl: Duration.minutes(5),
     });
