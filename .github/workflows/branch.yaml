@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   call-deploy:
-    uses: ./.github/workflows/build.yaml
+    uses: ./.github/workflows/deploy.yaml
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_DEFAULT_ACCOUNT_ID: ${{ secrets.AWS_DEFAULT_ACCOUNT_ID }}
