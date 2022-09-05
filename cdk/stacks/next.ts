@@ -53,7 +53,8 @@ export class Next extends Stack {
     const certificate = new Certificate(this, `${id}Certificate`, {
       domainName: props.config.domainStage,
       subjectAlternativeNames: [`www.${props.config.domainStage}`],
-      validation: CertificateValidation.fromDns(zone),
+      // Must use email validation since the dns isn't configured at this point
+      validation: CertificateValidation.fromEmail({props.config.developerEmail}),
     });
 
     // Next
