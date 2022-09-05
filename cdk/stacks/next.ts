@@ -51,10 +51,10 @@ export class Next extends Stack {
     // });
     // cname.applyRemovalPolicy(RemovalPolicy.DESTROY);
 
-    const ns = new NsRecord(this, 'NSRecord', {
+    const zd = new ZoneDelegationRecord(this, 'ZoneDelegationRecord', {
       zone,
       recordName: props.config.domainBase,
-      values: [
+      nameServers: [
       // Get these from the AWS > Route53 > Registered domains > <domain_name> > Name servers
         'ns-1214.awsdns-23.org.',
         'ns-191.awsdns-23.com.',
@@ -64,7 +64,7 @@ export class Next extends Stack {
       deleteExisting: true,
       ttl: Duration.minutes(5),
     });
-    ns.applyRemovalPolicy(RemovalPolicy.DESTROY);
+    zd.applyRemovalPolicy(RemovalPolicy.DESTROY);
 
     const certificate = new Certificate(this, `${id}Certificate`, {
       domainName: props.config.domainStage,
