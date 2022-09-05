@@ -74,6 +74,7 @@ export interface Config {
   bucketConfigName: string;
   codename: string;
   dbMailingList: string;
+  developerEmail: string;
   domainBase: string;
   domainPrefix: string | undefined;
   domainStage: string;
@@ -102,6 +103,7 @@ export const getConfig = () => {
     bucketConfigName: `${prefixKebabCase}config-bucket`,
     codename,
     dbMailingList,
+    developerEmail,
     domainBase,
     domainPrefix: domainPrefix[stage],
     domainStage,

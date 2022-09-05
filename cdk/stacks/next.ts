@@ -54,7 +54,7 @@ export class Next extends Stack {
       domainName: props.config.domainStage,
       subjectAlternativeNames: [`www.${props.config.domainStage}`],
       // Must use email validation since the dns isn't configured at this point
-      validation: CertificateValidation.fromEmail({props.config.developerEmail}),
+      validation: CertificateValidation.fromEmail({developerEmail: props.config.developerEmail}),
     });
 
     // Next
