@@ -2,7 +2,7 @@
 
 import { Certificate, CertificateValidation } from 'aws-cdk-lib/aws-certificatemanager';
 import { Construct } from 'constructs';
-import { HostedZone, ARecord, RecordTarget, CnameRecord, NsRecord } from 'aws-cdk-lib/aws-route53';
+import { HostedZone, ARecord, RecordTarget, CnameRecord, ZoneDelegationRecord } from 'aws-cdk-lib/aws-route53';
 import { Metric } from 'aws-cdk-lib/aws-cloudwatch';
 import { NextJSLambdaEdge } from '@sls-next/cdk-construct';
 import { Route53RecordTarget } from 'aws-cdk-lib/aws-route53-targets';
