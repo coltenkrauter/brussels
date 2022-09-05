@@ -24,6 +24,7 @@ export class Next extends Stack {
     const zone = new HostedZone(this, `${id}HostedZone`, {
       zoneName: props.config.domainBase,
     });
+    zone.applyRemovalPolicy(RemovalPolicy.DESTROY);
     const metric = new Metric({
       namespace: 'AWS/Route53',
       metricName: 'DNSQueries',
@@ -32,16 +33,22 @@ export class Next extends Stack {
       }
     });
 
-    // new ARecord(this, 'AliasRecord', {
+    // const record =vnew ARecord(this, 'AliasRecord', {
     //   zone,
-    //   target: RecordTarget.fromAlias(new Route53RecordTarget(props.config.domainBase),
+    //   target: RecordTarget.fromAlias(new Route53RecordTarget(props.config.domainBase),,
+    //   deleteExisting: true,
+    //   ttl: Duration.minutes(5),
     // });
+    // record.applyRemovalPolicy(RemovalPolicy.DESTROY);
 
-    // new CnameRecord(this, `${props.config.stage}CnameRecord`, {
+    // const cname = new CnameRecord(this, `${props.config.stage}CnameRecord`, {
     //   recordName: props.config.stage,
     //   zone,
     //   domainName: props.config.domainStage,
+    //   deleteExisting: true,
+    //   ttl: Duration.minutes(5),
     // });
+    // cname.applyRemovalPolicy(RemovalPolicy.DESTROY);
 
     const certificate = new Certificate(this, `${id}Certificate`, {
       domainName: props.config.domainStage,
