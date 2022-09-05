@@ -2,8 +2,10 @@
 
 import { Certificate, CertificateValidation } from 'aws-cdk-lib/aws-certificatemanager';
 import { Construct } from 'constructs';
-import { HostedZone } from 'aws-cdk-lib/aws-route53';
+import { HostedZone, ARecord, RecordTarget, CnameRecord } from 'aws-cdk-lib/aws-route53';
+import { Metric } from 'aws-cdk-lib/aws-cloudwatch';
 import { NextJSLambdaEdge } from '@sls-next/cdk-construct';
+import { Route53RecordTarget } from 'aws-cdk-lib/aws-route53-targets';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Stack, StackProps, Duration, CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
 import { Topic } from 'aws-cdk-lib/aws-sns';
@@ -19,13 +21,32 @@ export class Next extends Stack {
     super(scope, id, props);
 
     // DNS & certs
-    const hostedZone = HostedZone.fromLookup(this, `${id}HostedZone`, {
-      domainName: props.config.domainBase,
+    const zone = new HostedZone(this, `${id}HostedZone`, {
+      zoneName: props.config.domainBase,
     });
+    const metric = new Metric({
+      namespace: 'AWS/Route53',
+      metricName: 'DNSQueries',
+      dimensionsMap: {
+        HostedZoneId: zone.hostedZoneId
+      }
+    });
+
+    // new ARecord(this, 'AliasRecord', {
+    //   zone,
+    //   target: RecordTarget.fromAlias(new Route53RecordTarget(props.config.domainBase),
+    // });
+
+    // new CnameRecord(this, `${props.config.stage}CnameRecord`, {
+    //   recordName: props.config.stage,
+    //   zone,
+    //   domainName: props.config.domainStage,
+    // });
+
     const certificate = new Certificate(this, `${id}Certificate`, {
       domainName: props.config.domainStage,
       subjectAlternativeNames: [`www.${props.config.domainStage}`],
-      validation: CertificateValidation.fromDns(hostedZone),
+      validation: CertificateValidation.fromDns(zone),
     });
 
     // Next
@@ -49,7 +70,7 @@ export class Next extends Stack {
       domain: {
         certificate,
         domainNames: [props.config.domainStage, `www.${props.config.domainStage}`],
-        hostedZone,
+        hostedZone: zone,
       },
       cloudfrontProps: {
         comment: id,
