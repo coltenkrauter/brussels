@@ -35,26 +35,25 @@ export class Next extends Stack {
 
     // const record =vnew ARecord(this, 'AliasRecord', {
     //   zone,
-    //   target: RecordTarget.fromAlias(new Route53RecordTarget(props.config.domainBase),,
+    //   target: RecordTarget.fromAlias(new Route53RecordTarget(props.config.domainBase),
     //   deleteExisting: true,
     //   ttl: Duration.minutes(5),
     // });
     // record.applyRemovalPolicy(RemovalPolicy.DESTROY);
 
-    // const cname = new CnameRecord(this, `${props.config.stage}CnameRecord`, {
-    //   recordName: props.config.stage,
-    //   zone,
-    //   domainName: props.config.domainStage,
-    //   deleteExisting: true,
-    //   ttl: Duration.minutes(5),
-    // });
-    // cname.applyRemovalPolicy(RemovalPolicy.DESTROY);
+    const cname = new CnameRecord(this, `${props.config.stage}CnameRecord`, {
+      recordName: props.config.stage,
+      zone,
+      domainName: props.config.domainStage,
+      deleteExisting: true,
+      ttl: Duration.minutes(5),
+    });
+    cname.applyRemovalPolicy(RemovalPolicy.DESTROY);
 
     const certificate = new Certificate(this, `${id}Certificate`, {
       domainName: props.config.domainStage,
       subjectAlternativeNames: [`www.${props.config.domainStage}`],
-      // Must use email validation since the dns isn't configured at this point
-      validation: CertificateValidation.fromEmail({developerEmail: props.config.developerEmail}),
+      validation: CertificateValidation.fromDns(zone),
     });
 
     // Next
