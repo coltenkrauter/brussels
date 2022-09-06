@@ -20,7 +20,7 @@ const main = async () => {
   // Build the NextJS app
   await builder.build();
 
-  new DNS(app, `${config.codenameCapitalized}DNS`, {
+  const dNSStack = new DNS(app, `${config.codenameCapitalized}DNS`, {
     terminationProtection: config.isProd,
     env: {
       account: process.env.AWS_DEFAULT_ACCOUNT_ID,
@@ -41,7 +41,7 @@ const main = async () => {
     analyticsReporting: true,
     description: 'The Next stack',
     config,
-  });
+  }).addDependency(dNSStack);
 };
 
 main();
