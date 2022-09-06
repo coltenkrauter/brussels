@@ -24,20 +24,21 @@ export class Next extends Stack {
     const zoneId = 'HostedZone';
     let zone: any;
     try {
+      console.log("Trying");
       zone = HostedZone.fromLookup(this, zoneId, {
         domainName: props.config.domainBase,
       });
-      console.log(zone);
-    } catch {}
-
-    console.log(zone);
-    if (!zone) {
+    } catch {
+      console.log("Failed");
       zone = new HostedZone(this, zoneId, {
         zoneName: props.config.domainBase,
       });
       zone.applyRemovalPolicy(RemovalPolicy.DESTROY);
     }
 
+    console.log("Current zone:")
+    console.log(zone);
+   
     const metric = new Metric({
       namespace: 'AWS/Route53',
       metricName: 'DNSQueries',
