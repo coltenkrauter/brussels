@@ -22,9 +22,13 @@ export class Next extends Stack {
 
     // DNS & certs
     const zoneId = 'HostedZone';
-    let zone = HostedZone.fromLookup(this, zoneId, {
-      domainName: props.config.domainBase,
-    });
+    let zone: any;
+    try {
+      zone = HostedZone.fromLookup(this, zoneId, {
+        domainName: props.config.domainBase,
+      });
+      console.log(zone);
+    } catch {}
 
     console.log(zone);
     if (!zone) {
