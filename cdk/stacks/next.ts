@@ -21,65 +21,10 @@ export class Next extends Stack {
     super(scope, id, props);
 
     // DNS & certs
-    const zoneId = `${props.config.codenameCapitalized}HostedZone`;
-    let zone: any;
-    try {
-      console.log("Trying");
-      throw 'break!';
-      zone = HostedZone.fromHostedZoneAttributes(this, zoneId, {
-        zoneName: props.config.domainBase,
-        hostedZoneId: zoneId,
-      });
-    } catch {
-      console.log("Failed");
-      zone = new HostedZone(this, zoneId, {
-        zoneName: props.config.domainBase,
-      });
-      zone.applyRemovalPolicy(RemovalPolicy.DESTROY);
-    }
-
-    console.log("Current zone:")
-    console.log(zone);
-   
-    const metric = new Metric({
-      namespace: 'AWS/Route53',
-      metricName: 'DNSQueries',
-      dimensionsMap: {
-        HostedZoneId: zone.hostedZoneId
-      }
+    const zone = HostedZone.fromHostedZoneAttributes(this, props.config.zoneId, {
+      zoneName: props.config.domainBase,
+      hostedZoneId: props.config.zoneId,
     });
-
-    // const record =vnew ARecord(this, 'AliasRecord', {
-    //   zone,
-    //   target: RecordTarget.fromAlias(new Route53RecordTarget(props.config.domainBase),
-    //   deleteExisting: true,
-    //   ttl: Duration.minutes(5),
-    // });
-    // record.applyRemovalPolicy(RemovalPolicy.DESTROY);
-
-    // const cname = new CnameRecord(this, `${props.config.stage}CnameRecord`, {
-    //   recordName: props.config.stage,
-    //   zone,
-    //   domainName: props.config.domainBase,
-    //   deleteExisting: true,
-    //   ttl: Duration.minutes(5),
-    // });
-    // cname.applyRemovalPolicy(RemovalPolicy.DESTROY);
-
-    // const ns = new NsRecord(this, 'NSRecord', {
-    //   zone,
-    //   recordName: props.config.domainBase,
-    //   values: [
-    //   // Get these from the AWS > Route53 > Registered domains > <domain_name> > Name servers
-    //     'ns-1214.awsdns-23.org.',
-    //     'ns-191.awsdns-23.com.',
-    //     'ns-1640.awsdns-13.co.uk.',
-    //     'ns-790.awsdns-34.net.',
-    //   ],
-    //   deleteExisting: true,
-    //   ttl: Duration.minutes(5),
-    // });
-    // ns.applyRemovalPolicy(RemovalPolicy.DESTROY);
 
     const certificate = new Certificate(this, `${id}Certificate`, {
       domainName: props.config.domainStage,

@@ -97,6 +97,7 @@ export interface Config {
   stage: string;
   topicBounceComplaintEmail: string;
   topicBounceComplaintName: string;
+  zoneId: string;
 }
 
 export const getConfig = () => {
@@ -127,5 +128,6 @@ export const getConfig = () => {
     stage,
     topicBounceComplaintEmail: `${topicBounceComplaintEmail[stage]}`,
     topicBounceComplaintName: `${prefixCamelCase}BounceComplaint`,
+    zoneId: `${codenameCapitalized}HostedZone`,
   };
 };
