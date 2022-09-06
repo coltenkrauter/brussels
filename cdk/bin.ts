@@ -41,6 +41,7 @@ const main = async () => {
     analyticsReporting: true,
     description: 'The Next stack',
     config,
+    zoneId: dNSStack.zoneId,
   }).addDependency(dNSStack);
 };
 

@@ -14,6 +14,7 @@ import { Config } from '../config';
 
 interface NextProps extends StackProps {
   config: Config;
+  zoneId: string;
 }
 
 export class Next extends Stack {
@@ -21,9 +22,9 @@ export class Next extends Stack {
     super(scope, id, props);
 
     // DNS & certs
-    const zone = HostedZone.fromHostedZoneAttributes(this, props.config.zoneId, {
+    const zone = HostedZone.fromHostedZoneAttributes(this, props.zoneId, {
       zoneName: props.config.domainBase,
-      hostedZoneId: props.config.zoneId,
+      hostedZoneId: props.zoneId,
     });
 
     const certificate = new Certificate(this, `${id}Certificate`, {

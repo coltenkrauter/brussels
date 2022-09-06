@@ -12,21 +12,22 @@ interface DNSProps extends StackProps {
 }
 
 export class DNS extends Stack {
-  readonly zone;
+  readonly zoneId;
   constructor(scope: Construct, id: string, props: DNSProps) {
     super(scope, id, props);
 
     // DNS & certs
-    this.zone = new HostedZone(this, props.config.zoneId, {
+    const zone = new HostedZone(this, `${props.config.codenameCapitalized}HostedZone`, {
       zoneName: props.config.domainBase,
     });
-    this.zone.applyRemovalPolicy(RemovalPolicy.DESTROY);
-   
+    zone.applyRemovalPolicy(RemovalPolicy.DESTROY);
+
+    this.zoneId = zone.hostedZoneId;
     const metric = new Metric({
       namespace: 'AWS/Route53',
       metricName: 'DNSQueries',
       dimensionsMap: {
-        HostedZoneId: this.zone.hostedZoneId,
+        HostedZoneId: zone.hostedZoneId,
       }
     });
 
