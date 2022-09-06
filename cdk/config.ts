@@ -73,6 +73,7 @@ const prefixKebabCase = `${stage}-${codename}-`;
 export interface Config {
   bucketConfigName: string;
   codename: string;
+  codenameCapitalized: string;
   dbMailingList: string;
   developerEmail: string;
   domainBase: string;
@@ -84,7 +85,7 @@ export interface Config {
   githubRepository: string;
   githubServerUrl: string;
   githubSha: string;
-  hCaptchaSecret: string;  
+  hCaptchaSecret: string;
   isBranch: boolean;
   isMerge: boolean;
   isProd: boolean;
@@ -102,6 +103,7 @@ export const getConfig = () => {
   return {
     bucketConfigName: `${prefixKebabCase}config-bucket`,
     codename,
+    codenameCapitalized,
     dbMailingList,
     developerEmail,
     domainBase,

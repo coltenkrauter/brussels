@@ -4,6 +4,7 @@ import { writeJSON } from '@bevry/jsonfile';
 
 import { getConfig, STAGE } from './config';
 import { Next } from './stacks/next';
+import { DNS } from './stacks/dns';
 
 const builder = new Builder('.', './build', { args: ['build'] });
 const config = getConfig();
@@ -19,6 +20,17 @@ const main = async () => {
   // Build the NextJS app
   await builder.build();
 
+  const dNSStack = new DNS(app, `${config.codenameCapitalized}DNS`, {
+    terminationProtection: config.isProd,
+    env: {
+      account: process.env.AWS_DEFAULT_ACCOUNT_ID,
+      region: process.env.AWS_DEFAULT_REGION || 'us-east-1',
+    },
+    analyticsReporting: true,
+    description: 'The DNS stack',
+    config,
+  });
+
   // Deploy the NextJS app
   new Next(app, `${config.prefixCamelCase}Next`, {
     terminationProtection: config.isProd,
@@ -29,7 +41,8 @@ const main = async () => {
     analyticsReporting: true,
     description: 'The Next stack',
     config,
-  });
+    zoneId: dNSStack.zoneId,
+  }).addDependency(dNSStack);
 };
 
 main();
