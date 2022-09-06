@@ -25,8 +25,9 @@ export class Next extends Stack {
     let zone: any;
     try {
       console.log("Trying");
-      zone = HostedZone.fromLookup(this, zoneId, {
-        domainName: props.config.domainBase,
+      zone = HostedZone.fromHostedZoneAttributes(this, zoneId, {
+        zoneName: props.config.domainBase,
+        hostedZoneId: zoneId,
       });
     } catch {
       console.log("Failed");
