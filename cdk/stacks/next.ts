@@ -21,7 +21,7 @@ export class Next extends Stack {
     super(scope, id, props);
 
     // DNS & certs
-    const zoneId = 'HostedZone';
+    const zoneId = `${props.config.codenameCapitalized}HostedZone`;
     let zone: any;
     try {
       console.log("Trying");
