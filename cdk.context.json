@@ -1,1 +1,6 @@
-{}
+{
+  "hosted-zone:account=775126750502:domainName=rememberval.com:region=us-east-1": {
+    "Id": "/hostedzone/Z10280523GOIQ59UKGL5W",
+    "Name": "rememberval.com."
+  }
+}

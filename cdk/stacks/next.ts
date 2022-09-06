@@ -21,10 +21,17 @@ export class Next extends Stack {
     super(scope, id, props);
 
     // DNS & certs
-    const zone = new HostedZone(this, `${id}HostedZone`, {
-      zoneName: props.config.domainBase,
+    const zoneId = 'HostedZone';
+    let zone = HostedZone.fromLookup(this, zoneId, {
+      domainName: props.config.domainBase,
     });
-    zone.applyRemovalPolicy(RemovalPolicy.DESTROY);
+
+    if (!zone) {
+      zone = new HostedZone(this, zoneId, {
+        zoneName: props.config.domainBase,
+      });
+      zone.applyRemovalPolicy(RemovalPolicy.DESTROY);
+    }
 
     const metric = new Metric({
       namespace: 'AWS/Route53',
