@@ -26,6 +26,7 @@ export class Next extends Stack {
       domainName: props.config.domainBase,
     });
 
+    console.log(zone);
     if (!zone) {
       zone = new HostedZone(this, zoneId, {
         zoneName: props.config.domainBase,
