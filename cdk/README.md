@@ -118,6 +118,15 @@ cdk bootstrap aws://888213573687/us-east-1 -vv
 }
 ```
 
+## Transfer domain names
+
+```bash
+aws configure
+aws route53domains transfer-domain-to-another-aws-account --domain-name <value> --account-id <value>
+aws configure
+aws route53domains accept-domain-transfer-from-another-aws-account --domain-name rememberval.com --password "<value>"
+````
+
 ## Resources
 
 Examples:
