@@ -59,13 +59,17 @@ html {
 }
 
 .main-content {
-  padding: 1em;
   display: flex;
   flex-direction: column;
   gap: 1em;
+  margin: 0 auto;
+  max-width: calc(1920px/2);
+  padding: 1em;
 }
 
 .main-content iframe {
   width: calc(100vw - 2em);
   height: calc(56.25vw - 2em);
+  max-width: calc(1920px/2 - 2em);
+  max-height: calc(1080px/2 - 2em);
 }
