@@ -1,11 +1,7 @@
-[![Development](https://github.com/coltenkrauter/brussels/actions/workflows/branch.yaml/badge.svg?branch=development)](https://github.com/coltenkrauter/brussels/actions/workflows/branch.yaml)
-
-[![Main](https://github.com/coltenkrauter/brussels/actions/workflows/branch.yaml/badge.svg?branch=main)](https://github.com/coltenkrauter/brussels/actions/workflows/branch.yaml)
-
+[![GitHub release](https://img.shields.io/github/release/coltenkrauter/brussels.svg)](https://GitHub.com/coltenkrauter/brussels/releases/)
 [![Release](https://github.com/coltenkrauter/brussels/actions/workflows/release.yaml/badge.svg)](https://github.com/coltenkrauter/brussels/actions/workflows/release.yaml)
 
-
----
+# Brussels
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
