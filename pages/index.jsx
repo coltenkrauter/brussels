@@ -23,10 +23,10 @@ export default function Home() {
         <meta property='og:description' content='Valerie Jane Othus Memorial – Watch the memorial service that was livestreamed on May 2nd, 2021.' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
-      <div class='main-content'>
-      <div class='blurb'>
+      <div className='main-content'>
+      <div className='blurb'>
           Valerie Jane Othus Memorial
-          <div class='description'>
+          <div className='description'>
             Watch the memorial service that was livestreamed on May 2nd, 2021.
           </div>
         </div>
