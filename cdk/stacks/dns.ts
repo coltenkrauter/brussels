@@ -16,7 +16,8 @@ export class DNS extends Stack {
   constructor(scope: Construct, id: string, props: DNSProps) {
     super(scope, id, props);
 
-    // DNS & certs
+    // DNS
+    // Note: After the HostedZone is created, update the registered domain to have the same name servers.
     const zone = new HostedZone(this, `${props.config.codenameCapitalized}HostedZone`, {
       zoneName: props.config.domainBase,
     });

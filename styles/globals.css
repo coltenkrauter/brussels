@@ -30,24 +30,17 @@ html {
   border-radius: 50%;
 }
 
-.logo {
-  font-family: 'Seaweed Script', cursive;
+.blurb {
+  font-family: 'Ubuntu', cursive;
   color: #937163;
-  background: #121FCF;
-  background: -webkit-linear-gradient(to right, #a68970 0%, #beaa99 80%);
-  background: -moz-linear-gradient(to right, #a68970 0%, #beaa99 80%);
-  background: linear-gradient(to right, #a68970 0%, #beaa99 80%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 45px;
+  background: white;
+  font-size: 25px;
+  padding: 1em;
+  text-align: left;
 }
 
-.mailing-list {
-  font-family: 'Ubuntu', sans-serif;
-  color: #beaa99;
-  font-size: 24px;
-  font-weight: 400;
-  font-style: italic;
+.blurb .description {
+  font-size: 16px;
 }
 
 .body-content {
@@ -63,4 +56,20 @@ html {
 
 .body-content a:hover {
   text-decoration: underline;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin: 0 auto;
+  max-width: calc(1920px/2);
+  padding: 1em;
+}
+
+.main-content iframe {
+  width: calc(100vw - 2em);
+  height: calc(56.25vw - 2em);
+  max-width: calc(1920px/2 - 2em);
+  max-height: calc(1080px/2 - 2em);
 }

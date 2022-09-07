@@ -20,7 +20,7 @@ const main = async () => {
   // Build the NextJS app
   await builder.build();
 
-  const dNSStack = new DNS(app, `${config.codenameCapitalized}DNS`, {
+  const dNSStack = new DNS(app, `Shared${config.codenameCapitalized}DNS`, {
     terminationProtection: config.isProd,
     env: {
       account: process.env.AWS_DEFAULT_ACCOUNT_ID,
